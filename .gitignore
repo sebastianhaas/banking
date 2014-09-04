@@ -1,0 +1,8 @@
+# Vagrant stuff
+/.vagrant/
+
+# Binaries
+/invoicescanner/bin/
+
+# Windows stuff
+Thumbs.db
