@@ -18,9 +18,7 @@ sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password passwor
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password banking'
 sudo apt-get -y install mysql-server
 
-# Install python MySql driver
-#wget http://dev.mysql.com/get/Downloads/Connector-Python/mysql-connector-python_2.0.1-1ubuntu12.04_all.deb
-#dpkg -i mysql-connector-python_2.0.1-1ubuntu12.04_all.deb
+# Install Python MySql driver
 wget http://dev.mysql.com/get/Downloads/Connector-Python/mysql-connector-python-2.0.1.tar.gz
 gunzip mysql-connector-python-2.0.1.tar.gz
 tar xf mysql-connector-python-2.0.1.tar
@@ -30,8 +28,9 @@ cd ..
 rm -rf mysql-connector-python-2.0.1
 rm -rf mysql-connector-python-2.0.1.tar
 
-# Install python packages
-pip3 install Django
+# Install other Python modules
+pip3 install Django                 # Django itself
+pip3 install djangorestframework    # Django REST framework
 
 # Create database and user
 mysql -uroot -pbanking -e "DROP DATABASE IF EXISTS banking";
