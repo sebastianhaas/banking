@@ -1,5 +1,8 @@
 # Vagrant stuff
-/.vagrant/
+**/.vagrant/**
+
+#PyCharms stuff
+**/.idea/**
 
 # Binaries
 /invoicescanner/bin/
