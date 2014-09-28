@@ -6,6 +6,7 @@
 
 # Binaries
 /invoicescanner/bin/
+*.pyc
 
 # Windows stuff
 Thumbs.db
