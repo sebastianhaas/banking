@@ -1,8 +1,8 @@
-from webservice.models import Account
+from webservice.models import BalanceSheetAccount
 from rest_framework import serializers
 
 
-class AccountSerializer(serializers.ModelSerializer):
+class BalanceSheetAccountSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Account
+        model = BalanceSheetAccount
         fields = ('id', 'code', 'created', 'description', 'is_container', 'is_root', 'name', 'notes')
