@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'webservice',
     'rest_framework',
+    'oauth2_provider',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -78,7 +79,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Vienna'
 
 USE_I18N = True
 

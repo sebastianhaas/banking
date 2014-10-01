@@ -31,6 +31,7 @@ rm -rf mysql-connector-python-2.0.1.tar
 # Install other Python modules
 pip3 install Django                 # Django itself
 pip3 install djangorestframework    # Django REST framework
+pip3 install django-oauth-toolkit    # Django OAuth2 authentication toolkit
 
 # Create database and user
 mysql -uroot -pbanking -e "DROP DATABASE IF EXISTS banking";
