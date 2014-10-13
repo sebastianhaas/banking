@@ -39,6 +39,26 @@ class ImbalanceAccount(Account):
     pass
 
 
+class Split(BasicModel):
+    NEW = 'n'
+    CLEARED = 'c'
+    RECONCILED = 'r'
+    RECONCILIATION_STATE_CHOICES = (
+        (NEW, 'New'),
+        (CLEARED, 'Cleared'),
+        (RECONCILED, 'Reconciled'),
+    )
+    credit = models.DecimalField(max_length=19, decimal_places=2)
+    debit = models.DecimalField(max_length=19, decimal_places=2)
+    reconciliation_state = models.CharField(max_length=1,
+                                            choices=RECONCILIATION_STATE_CHOICES,
+                                            default=NEW)
+    text = models.CharField(max_length=200)
+
+    def is_reconciled(self):
+        return self.reconciliation_state is Split.RECONCILED
+
+
 class Tag(BasicModel):
     name = models.CharField(max_length=50)
 
@@ -64,7 +84,4 @@ class Location(BasicModel):
     latitude = models.FloatField()
     longitude = models.FloatField()
     speed = models.FloatField(default=-1)
-
-
-
 
