@@ -11,6 +11,10 @@ class BasicModel(models.Model):
         abstract = True
 
 
+class Tag(BasicModel):
+    name = models.CharField(max_length=50)
+
+
 class Account(BasicModel):
     # Balance Sheet Accounts
     # - Assets
@@ -49,7 +53,20 @@ class Account(BasicModel):
     is_root = models.BooleanField(default=False)
     name = models.CharField(max_length=100)
     notes = models.TextField()
+    parent = models.ForeignKey('self', blank=True)
+    tag = models.ManyToManyField('Tag')
     type = models.PositiveSmallIntegerField(choices=ACCOUNT_TYPES)
+
+
+class Transaction(BasicModel):
+    date = models.DateField()
+    number = models.CharField(max_length=50)
+    tag = models.ManyToManyField('Tag')
+    text = models.CharField(max_length=200)
+    time = models.TimeField(blank=True, null=True)
+
+    def has_time(self):
+        return self.time is not None
 
 
 class Split(BasicModel):
@@ -67,13 +84,10 @@ class Split(BasicModel):
                                             choices=RECONCILIATION_STATE_CHOICES,
                                             default=NEW)
     text = models.CharField(max_length=200)
+    transaction = models.ForeignKey('Transaction')
 
     def is_reconciled(self):
         return self.reconciliation_state is Split.RECONCILED
-
-
-class Tag(BasicModel):
-    name = models.CharField(max_length=50)
 
 
 class Device(BasicModel):
@@ -84,6 +98,7 @@ class Device(BasicModel):
     model = models.CharField(max_length=100)
     name = models.CharField(max_length=50)
     serial = models.CharField(max_length=100)
+    tag = models.ManyToManyField('Tag')
 
 
 class InvoiceScan(BasicModel):
@@ -97,4 +112,3 @@ class Location(BasicModel):
     latitude = models.FloatField()
     longitude = models.FloatField()
     speed = models.FloatField(default=-1)
-
