@@ -12,44 +12,57 @@ class BasicModel(models.Model):
 
 
 class Account(BasicModel):
+    # Balance Sheet Accounts
+    # - Assets
+    BANK_ACCOUNT = 0
+    CASH_ACCOUNT = 1
+    OTHER_ASSETS = 2
+
+    # - Liabilities
+    CREDIT_CARD = 3
+    OTHER_LIABILITIES = 4
+
+    # - Equity
+    EQUITY = 5
+
+    # Nominal Accounts
+    # - Income
+    INCOME = 6
+
+     # - Expenses
+    EXPENSES = 7
+
+    ACCOUNT_TYPES = (
+        (BANK_ACCOUNT, 'Bank account'),
+        (CASH_ACCOUNT, 'Cash account'),
+        (OTHER_ASSETS, 'Other assets'),
+        (CREDIT_CARD, 'Credit card'),
+        (OTHER_LIABILITIES, 'Other liabilities'),
+        (EQUITY, 'Equity'),
+        (INCOME, 'Income'),
+        (EXPENSES, 'Expenses'),
+    )
+
     code = models.CharField(max_length=50)
     description = models.TextField()
     is_container = models.BooleanField(default=False)
     is_root = models.BooleanField(default=False)
     name = models.CharField(max_length=100)
     notes = models.TextField()
-
-    class Meta:
-        abstract = True
-
-
-class BalanceSheetAccount(Account):
-    pass
-
-
-class NominalAccount(Account):
-    pass
-
-
-class EquityAccount(Account):
-    pass
-
-
-class ImbalanceAccount(Account):
-    pass
+    type = models.PositiveSmallIntegerField(choices=ACCOUNT_TYPES)
 
 
 class Split(BasicModel):
-    NEW = 'n'
     CLEARED = 'c'
+    NEW = 'n'
     RECONCILED = 'r'
     RECONCILIATION_STATE_CHOICES = (
         (NEW, 'New'),
         (CLEARED, 'Cleared'),
         (RECONCILED, 'Reconciled'),
     )
-    credit = models.DecimalField(max_length=19, decimal_places=2)
-    debit = models.DecimalField(max_length=19, decimal_places=2)
+    account = models.ForeignKey('Account')
+    amount = models.DecimalField(max_digits=20, decimal_places=2)
     reconciliation_state = models.CharField(max_length=1,
                                             choices=RECONCILIATION_STATE_CHOICES,
                                             default=NEW)
