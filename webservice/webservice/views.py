@@ -1,11 +1,10 @@
-from django.shortcuts import render
-from webservice.models import BalanceSheetAccount
-from webservice.serializers import BalanceSheetAccountSerializer
+from webservice.models import Account
+from webservice.serializers import AccountSerializer
 from rest_framework import generics
 
 # Create your views here.
 
 
-class BalanceSheetAccountList(generics.ListAPIView):
-    queryset = BalanceSheetAccount.objects.all()
-    serializer_class = BalanceSheetAccountSerializer
+class AccountList(generics.ListAPIView):
+    queryset = Account.objects.all()
+    serializer_class = AccountSerializer
