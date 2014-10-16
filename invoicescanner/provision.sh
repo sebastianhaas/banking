@@ -13,4 +13,4 @@ export TESSDATA_PREFIX=/vagrant/invoicescanner/
 wget --no-check-certificate https://github.com/aglover/ubuntu-equip/raw/master/equip_java8.sh && bash equip_java8.sh
 
 # Install Android
-wget --no-check-certificate https://github.com/aglover/ubuntu-equip/raw/master/equip_android.sh && bash equip_android.sh
+#wget --no-check-certificate https://github.com/aglover/ubuntu-equip/raw/master/equip_android.sh && bash equip_android.sh
