@@ -5,6 +5,7 @@ from django.db import models
 
 class BasicModel(models.Model):
     created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
     owner = models.ForeignKey('auth.User')
 
     class Meta:
@@ -13,6 +14,9 @@ class BasicModel(models.Model):
 
 class Tag(BasicModel):
     name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return '%s' % self.name
 
 
 class Account(BasicModel):
@@ -53,9 +57,12 @@ class Account(BasicModel):
     is_root = models.BooleanField(default=False)
     name = models.CharField(max_length=100)
     notes = models.TextField()
-    parent = models.ForeignKey('self', blank=True)
+    parent = models.ForeignKey('self', blank=True, null=True)
     tag = models.ManyToManyField('Tag')
     type = models.PositiveSmallIntegerField(choices=ACCOUNT_TYPES)
+
+    def __str__(self):
+        return '%s [%s]' % (self.name, self.code)
 
 
 class Transaction(BasicModel):
